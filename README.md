@@ -1,6 +1,6 @@
 # Mini Incident Triage Squad
 
-A two hour, hands-on exercise in building a small multi-agent system by hand.
+A hands-on exercise in building a small multi-agent system by hand.
 
 You will build an **orchestrator** that reads an incident report and coordinates three
 **specialist agents**, each with exactly one tool, to work out what happened and what to do
@@ -16,9 +16,9 @@ learn from making it work.
 
 Most of the difficulty in agentic systems is not the model call. It is deciding who knows
 what, who is allowed to do what, what can safely happen at the same time, and how partial
-answers get merged into something a human can act on. This exercise is sized so that you hit
-all of those in the first hour and spend the second hour iterating on prompts, which is where
-the learning is.
+answers get merged into something a human can act on. This exercise is small enough that you
+reach all of those quickly, which leaves the bulk of your time for running it and iterating on
+prompts. That is where the learning is, so protect it.
 
 ## What you are building
 
@@ -109,7 +109,7 @@ These exist to keep the exercise about agent design rather than about libraries.
 5. **Specialists do not call each other.** All coordination goes through the orchestrator.
 6. **The orchestrator has no tools.** It only calls agents, joins their output, and decides.
 7. **Prompts live in their own files**, not inline in the middle of your loop. You will be
-   editing them repeatedly in the second hour and you want the diffs to be readable.
+   editing them repeatedly once it runs, and you want the diffs to be readable.
 8. **Every claim carries evidence.** A finding cites the log line, change record or runbook
    entry it came from. This is the single most effective anti-hallucination measure in the
    exercise, and the reason the data is small enough to check by hand.
@@ -145,20 +145,29 @@ Start with **INC-2043**. The other two are for the iteration phase.
 - [docs/output-contract.md](docs/output-contract.md): the shape of the final triage result
   your orchestrator produces.
 
-## Suggested two hour plan
+## Suggested order of work
 
-| Time | Activity |
-|------|----------|
-| 0:00 - 0:15 | Read this brief and INC-2043. Skim the data. Work out by hand, as a human, what you think happened. Write it down. You are now the benchmark. |
-| 0:15 - 0:40 | Implement the three search tools against `docs/tool-contracts.md` and test them directly, with no model involved. They share most of their logic. |
-| 0:40 - 1:05 | Build the log analyst: prompt, loop, tool call handling, structured result. Get it working alone. |
-| 1:05 - 1:15 | Build the change historian. It is the same shape as the analyst with a different prompt and tool, so it should be quick. If it is not, your analyst is not as reusable as you thought, which is worth noticing. |
-| 1:15 - 1:35 | Orchestrator: fan out to both concurrently, join, then call the runbook lookup with the joined symptom. |
-| 1:35 - 1:55 | Run INC-2043 end to end. Iterate the prompts until the output matches what you wrote down at 0:15. Then try INC-2051 and INC-2062. |
-| 1:55 - 2:00 | Write up what broke and what you changed. Compare with the group. |
+Take as long as you need on each step. The order matters, the pace does not.
 
-If you are behind at 1:15, hard code the runbook agent's answer and get the fan-out and join
-working. The parallel step is the part of this exercise you cannot get from a tutorial.
+1. **Read and benchmark yourself.** Read this brief and INC-2043, skim the data, and work out
+   by hand what you think happened. Write it down. You are now the benchmark your system gets
+   compared against.
+2. **Build the three search tools** against `docs/tool-contracts.md` and test them directly,
+   with no model involved. They share most of their logic.
+3. **Build the log analyst**: prompt, loop, tool call handling, structured result. Get it
+   working on its own before it has any company.
+4. **Build the change historian.** It is the same shape as the analyst with a different prompt
+   and tool, so it should be quick. If it is not, your analyst was less reusable than you
+   thought, which is worth noticing.
+5. **Build the orchestrator**: fan out to both concurrently, join their findings, then call the
+   runbook lookup with the joined symptom.
+6. **Run INC-2043 end to end** and iterate the prompts until the output matches what you wrote
+   down in step 1. Then try INC-2051 and INC-2062.
+7. **Write up** what broke and what you changed.
+
+If you have less time than the work needs, hard code the runbook agent's answer and get the
+fan-out and join working. The parallel step is the part of this exercise you cannot get from a
+tutorial. If you have more time, the stretch goals below are where it gets interesting.
 
 ## Self-check
 
@@ -182,7 +191,7 @@ verify every citation by hand, and doing so is part of the exercise.
 8. The final output validates against `docs/output-contract.md`.
 9. No specialist can see another specialist's tool or findings.
 
-## Iteration prompts for the second hour
+## Iteration prompts once it works
 
 When it works, make it fail, and then make it not fail:
 
