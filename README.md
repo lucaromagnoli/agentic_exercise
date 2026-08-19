@@ -1,6 +1,6 @@
 # Mini Incident Triage Squad
 
-A hands-on exercise in building a small multi-agent system by hand.
+A hands-on exercise in building a small multi-agent system yourself.
 
 You will build an **orchestrator** that reads an incident report and coordinates three
 **specialist agents**, each with exactly one tool, to work out what happened and what to do
@@ -28,7 +28,7 @@ prompts. That is where the learning is, so protect it.
                                 v
                        +------------------+
                        |   ORCHESTRATOR   |  no tools of its own
-                       |  plain code loop |  fans out, joins, decides
+                       |  deterministic   |  fans out, joins, decides
                        +------------------+
                           |            |
               fan out, concurrently    |
@@ -66,7 +66,7 @@ prompts. That is where the learning is, so protect it.
                        +------------------+
 ```
 
-**Orchestrator.** Plain code, not a model deciding everything. It reads the incident, fans
+**Orchestrator.** Deterministic, not a model deciding everything. It reads the incident, fans
 out to the log analyst and the change historian **at the same time**, waits for both,
 correlates their findings, then hands the resulting symptom to the runbook lookup. A loop with
 a fan-out, a join and a couple of conditionals is the target, not a planner.
@@ -94,10 +94,16 @@ update. No tool, or the trivial `post_update` stub.
 
 ## Ground rules
 
-These exist to keep the exercise about agent design rather than about libraries.
+These exist to keep the exercise about agent design rather than about wiring.
 
-1. **Hand-built.** No agent framework (LangChain, LangGraph, CrewAI, Autogen and friends). A
-   raw model SDK plus your own loop is the point. Use whatever language you like.
+1. **Write it yourself.** This is the one rule that matters. Do not hand the build to a coding
+   agent and review what comes back: the understanding is the deliverable here, and it does not
+   survive delegation. Asking a model to explain an API, or to help you read an error, is fine.
+   Getting it to produce the system is not, and it is obvious in the debrief who did which.
+   Language, libraries and agent framework are entirely your call: LangGraph, CrewAI, a raw
+   model SDK and your own loop, whatever you already know or want to learn. If your framework
+   gives you fan-out and join for free, spend the time you saved working out what it actually
+   does when a branch fails.
 2. **Three real tools plus an optional stub**, exactly as specified in
    [docs/tool-contracts.md](docs/tool-contracts.md). No extra tools, no filesystem access, no
    shelling out to grep.
@@ -232,3 +238,5 @@ When it works, make it fail, and then make it not fail:
 - Which failures were prompt problems and which were architecture problems?
 - What did the evidence citation requirement cost you, and what did it buy you?
 - If a fourth specialist arrived tomorrow, what would you have to change?
+- If you used a framework, what did it decide for you, and would you have decided the same? If
+  you did not, what did you spend time building that you would rather have had for free?
