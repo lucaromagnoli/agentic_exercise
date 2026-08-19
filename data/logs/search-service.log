@@ -1,0 +1,14 @@
+2026-08-18T08:40:11Z  search-service  INFO   query completed index=catalogue duration_ms=74 hits=118 cache=hit
+2026-08-18T08:55:31Z  search-service  INFO   service started version=2.7.1 pod=search-service-7d9f node=ip-10-3-14-91
+2026-08-18T08:58:02Z  search-service  INFO   index warm complete index=catalogue documents=1204885 duration_ms=88000
+2026-08-18T09:05:40Z  search-service  INFO   query completed index=catalogue duration_ms=1174 hits=118 cache=hit
+2026-08-18T09:12:19Z  search-service  WARN   cpu throttled pod=search-service-7d9f throttled_periods=812 total_periods=1000
+2026-08-18T09:21:58Z  search-service  INFO   query completed index=catalogue duration_ms=4288 hits=91 cache=hit
+2026-08-18T09:22:00Z  search-service  INFO   cache statistics index=catalogue hit_rate=94.1% evictions=0
+2026-08-18T09:33:47Z  search-service  WARN   cpu throttled pod=search-service-7d9f throttled_periods=903 total_periods=1000
+2026-08-18T09:44:50Z  search-service  INFO   query completed index=catalogue duration_ms=6011 hits=204 cache=hit
+2026-08-18T09:45:00Z  search-service  INFO   heap usage 41% gc_pause_ms=12 note=nominal
+2026-08-18T09:58:18Z  search-service  ERROR  query aborted index=catalogue reason=client_timeout duration_ms=8000
+2026-08-18T10:02:33Z  search-service  INFO   cache statistics index=catalogue hit_rate=93.7% evictions=0
+2026-08-18T10:30:58Z  search-service  WARN   cpu throttled pod=search-service-7d9f throttled_periods=940 total_periods=1000
+2026-08-18T10:31:24Z  search-service  INFO   query completed index=catalogue duration_ms=5709 hits=77 cache=hit
