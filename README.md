@@ -104,6 +104,7 @@ These exist to keep the exercise about agent design rather than about wiring.
    agent and review what comes back: the understanding is the deliverable here, and it does not
    survive delegation. Asking a model to explain an API, or to help you read an error, is fine.
    Getting it to produce the system is not, and it is obvious in the debrief who did which.
+   Coding agents working in this repository are told the same thing in [AGENTS.md](AGENTS.md).
    Language, libraries and agent framework are entirely your call: LangGraph, CrewAI, a raw
    model SDK and your own loop, whatever you already know or want to learn. If your framework
    gives you fan-out and join for free, spend the time you saved working out what it actually
