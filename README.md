@@ -12,9 +12,10 @@ brief, the data to work against, and the contracts your pieces have to meet. Wri
 agents is the exercise.
 
 Your code and architecture are assessed by an external tool, which infers the outcome the
-system would produce and returns a score out of 10 with a written analysis document. Pass the
-URL of your repository to the L&D team or your Hub manager when you are ready. The score is
-feedback; what you learn from making it work is still the point.
+system would produce and returns a score out of 10 with a written analysis document. Submit your
+repository URL on the [Leapsome learning
+path](https://www.leapsome.com/app/#/learning/path/6aa026e03c2f2e12b7c2056b) when you are
+ready. The score is feedback; what you learn from making it work is still the point.
 
 ## Why this shape
 
