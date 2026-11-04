@@ -9,8 +9,12 @@ alone: the orchestrator has to correlate their findings.
 
 This repository deliberately contains **no agent code**, and no answer key. It gives you the
 brief, the data to work against, and the contracts your pieces have to meet. Writing the
-agents is the exercise. Nobody marks the result; the only thing that matters is what you
-learn from making it work.
+agents is the exercise.
+
+Your code and architecture are assessed by an external tool, which infers the outcome the
+system would produce and returns a score out of 10 with a written analysis document. Pass the
+URL of your repository to the L&D team or your Hub manager when you are ready. The score is
+feedback; what you learn from making it work is still the point.
 
 ## Why this shape
 
