@@ -176,6 +176,8 @@ Take as long as you need on each step. The order matters, the pace does not.
 6. **Run INC-2043 end to end** and iterate the prompts until the output matches what you wrote
    down in step 1. Then try INC-2051 and INC-2062.
 7. **Write up** what broke and what you changed.
+8. **Write the eval cases down**, using the answer you wrote in step 1 as the expectations. See
+   [Follow-on work: evals](#follow-on-work-evals).
 
 If you have less time than the work needs, hard code the runbook agent's answer and get the
 fan-out and join working. The parallel step is the part of this exercise you cannot get from a
@@ -236,6 +238,37 @@ When it works, make it fail, and then make it not fail:
   supporting line from each corpus, then run it ten times to see how stable your prompts
   really are.
 - Run all three incidents in one go and produce a single ranked action list.
+
+## Follow-on work: evals
+
+Nothing assesses evals here at the moment. Build them anyway: it is the next thing a team would
+ask of you, and it is likely to be assessed later.
+
+You already have the raw material: three incidents, a system that handles them, and the answers
+you wrote by hand in step 1. That is a dataset waiting to be written down. Turn it into one:
+
+- **One case per incident.** Record the incident id, the root cause you expect, the start time,
+  the reporter's theory that must be ruled out, and whether a current runbook entry matches.
+  Take the expectations from your step 1 answer, not from the system's output. Grading a system
+  against itself always passes.
+- **Assert properties, not prose.** An exact string match on generated text fails for reasons
+  that do not matter. Assert the things Self-check asserts: the right cause, a start time,
+  at least one citation from each corpus, the bad theory explicitly rejected, no runbook match
+  for INC-2062.
+- **Keep one case out of the tuning loop.** Iterate freely on two, and leave the third alone
+  beyond fixing outright breakage. Once a case has shaped your prompt it is training data, and
+  it can no longer tell you whether you have overfitted.
+- **Record the run, not just the pass.** Five runs per case, logging which properties held, tool
+  calls per specialist, latency and cost. The spread between runs is the interesting result, and
+  a single green run hides it.
+- **Add a case for every failure you find.** The deletion, timeout, empty search and three tool
+  call cap experiments in Iteration prompts are eval cases already. Write them down as they
+  happen, while the expected answer is still obvious.
+
+None of this needs a framework. A file per case, your orchestrator behind a function, and a
+script that prints per case and per property results is enough to start. If you reach for a
+model to grade the output, hold it to the same rule as your agents: it cites the evidence it
+used, or the grade does not count.
 
 ## Debrief questions
 
