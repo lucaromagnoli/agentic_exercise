@@ -3,7 +3,8 @@ Analysing INC-2043.
 The incident has been raised at 19:38 on the 2026-08-12. The reporter says that the error happens in the payment page. 
 We know we should only rely on factual evidence from the reporter and not his analysis of the problem, so it's reasonable to start by analysing checkout-service.log
 
-Here we can see several  timeout errors while aqcuiring db pool conections
+Here we can see several timeout errors while aqcuiring db pool conections. This is when the incident started
+2026-08-12T19:33:41Z  checkout-service  ERROR  timeout acquiring connection from pool=primary after 5000ms queue_depth=41 order_id=ord_88213
 2026-08-12T19:34:12Z  checkout-service  ERROR  request failed method=POST path=/v2/checkout status=500 duration_ms=5021 error=PoolAcquireTimeout
 2026-08-12T19:36:40Z  checkout-service  ERROR  timeout acquiring connection from pool=primary after 5000ms queue_depth=96 order_id=ord_88274
 
@@ -12,6 +13,9 @@ We can observer that the checkout-service that on the last succesful request, we
 
 However previously pool_max was set to a larget value
 2026-08-12T19:20:03Z  checkout-service  INFO   request completed method=POST path=/v2/checkout status=200 duration_ms=142 pool_in_use=11 pool_max=40
+
+Then it's deployed again with a lower max pool
+2026-08-12T19:31:14Z  checkout-service  INFO   database pool initialised name=primary min=1 max=4 acquire_timeout_ms=5000
 
 We can see from postgres logs that the server still has plenty of spare connections. 
 
