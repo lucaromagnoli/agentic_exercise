@@ -19,9 +19,15 @@ In platform events we can see that there has been a new checkout-service deploym
 
 So the picture that comes out from this is that previously the service was running with a larger max number of pool connections and once it reached max number it started erroring.
 
-From the changelog we can finally see that there had been a change that set max_pool to 4. 
+From the changelog we can finally see that there has been a change that set max_pool to 4
+## CHG-1042 - Reduce idle database connections on checkout-service
+- **Merged:** 2026-08-12 11:03 UTC
+- **Shipped:** 2026-08-12 19:31 UTC in checkout-service v4.12.0
 
-The runbook tells us
+
+The runbook tellls us
+## RB-004 - Database connection pool exhaustion in a service
+
 2. If the pool size changed in the current release, roll the service back to the previous
    version per RB-010. Rollback is preferred over hot-patching configuration during an
    incident.
