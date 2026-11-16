@@ -1,8 +1,10 @@
 Analysing INC-2043.
 
 The incident has been raised at 19:38 on the 2026-08-12. The reporter says that the error happens in the payment page. 
-The reporter says the payment service may be the root cause but there are no logs around the time the incident happened so we can rule out the reporter theory.
-We know we should only rely on factual evidence from the reporter and not his analysis of the problem, so it's reasonable to start by analysing checkout-service.log
+The reporter says the payment service may be the root cause but there are no error logs around the time the incident happened. We can see the service payment is working but its processing fewer payments, so the reporter theory can be ruled out
+2026-08-12T19:36:19Z  payments-worker  INFO   queue depth normal queue=charges depth=3 note=fewer_charges_enqueued
+
+We know from the rpeort the error was on the payment page, so it's reasonable to start by analysing checkout-service.log
 
 Here we can see several timeout errors while aqcuiring db pool conections. This is when the incident started
 2026-08-12T19:33:41Z  checkout-service  ERROR  timeout acquiring connection from pool=primary after 5000ms queue_depth=41 order_id=ord_88213
