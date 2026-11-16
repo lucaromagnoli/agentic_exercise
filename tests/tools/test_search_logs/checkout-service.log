@@ -1,0 +1,24 @@
+2026-08-12T19:20:03Z  checkout-service  INFO   request completed method=POST path=/v2/checkout status=200 duration_ms=142 pool_in_use=11 pool_max=40
+2026-08-12T19:25:47Z  checkout-service  INFO   request completed method=POST path=/v2/checkout status=200 duration_ms=137 pool_in_use=14 pool_max=40
+2026-08-12T19:29:58Z  checkout-service  INFO   draining connections for shutdown reason=deploy version=4.11.3
+2026-08-12T19:31:14Z  checkout-service  INFO   service started version=4.12.0 commit=9f2c1ab
+2026-08-12T19:31:14Z  checkout-service  INFO   database pool initialised name=primary min=1 max=4 acquire_timeout_ms=5000
+2026-08-12T19:31:49Z  checkout-service  INFO   request completed method=POST path=/v2/checkout status=200 duration_ms=168 pool_in_use=4 pool_max=4
+2026-08-12T19:32:26Z  checkout-service  WARN   connection acquisition slow pool=primary waited_ms=1840 queue_depth=7
+2026-08-12T19:33:05Z  checkout-service  WARN   connection acquisition slow pool=primary waited_ms=3920 queue_depth=23
+2026-08-12T19:33:41Z  checkout-service  ERROR  timeout acquiring connection from pool=primary after 5000ms queue_depth=41 order_id=ord_88213
+2026-08-12T19:33:58Z  checkout-service  ERROR  timeout acquiring connection from pool=primary after 5000ms queue_depth=57 order_id=ord_88219
+2026-08-12T19:34:12Z  checkout-service  ERROR  request failed method=POST path=/v2/checkout status=500 duration_ms=5021 error=PoolAcquireTimeout
+2026-08-12T19:36:40Z  checkout-service  ERROR  timeout acquiring connection from pool=primary after 5000ms queue_depth=96 order_id=ord_88274
+2026-08-12T19:38:15Z  checkout-service  WARN   pool saturated pool=primary in_use=4 max=4 waiters=113 sustained_for=270s
+2026-08-12T19:41:02Z  checkout-service  ERROR  request failed method=POST path=/v2/checkout status=500 duration_ms=5018 error=PoolAcquireTimeout
+2026-08-12T19:44:37Z  checkout-service  INFO   health check degraded checks=[db:fail, cache:ok, payments:ok]
+2026-08-12T19:52:33Z  checkout-service  INFO   service started version=4.12.0 commit=9f2c1ab replica=7
+2026-08-12T19:52:33Z  checkout-service  INFO   database pool initialised name=primary min=1 max=4 acquire_timeout_ms=5000
+2026-08-12T19:53:10Z  checkout-service  WARN   pool saturated pool=primary in_use=4 max=4 waiters=88 sustained_for=37s
+2026-08-12T19:58:04Z  checkout-service  ERROR  request failed method=POST path=/v2/checkout status=500 duration_ms=5009 error=PoolAcquireTimeout
+2026-08-12T20:06:46Z  checkout-service  INFO   service started version=4.11.3 commit=1d77e40
+2026-08-12T20:06:46Z  checkout-service  INFO   database pool initialised name=primary min=4 max=40 acquire_timeout_ms=5000
+2026-08-12T20:07:31Z  checkout-service  INFO   request completed method=POST path=/v2/checkout status=200 duration_ms=151 pool_in_use=17 pool_max=40
+2026-08-12T20:12:09Z  checkout-service  INFO   health check healthy checks=[db:ok, cache:ok, payments:ok]
+2026-08-13T09:02:55Z  checkout-service  INFO   request completed method=POST path=/v2/checkout status=200 duration_ms=139 pool_in_use=12 pool_max=40
