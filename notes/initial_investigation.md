@@ -1,6 +1,7 @@
 Analysing INC-2043.
 
 The incident has been raised at 19:38 on the 2026-08-12. The reporter says that the error happens in the payment page. 
+The reporter says the payment service may be the root cause but there are no logs around the time the incident happened so we can rule out the reporter theory.
 We know we should only rely on factual evidence from the reporter and not his analysis of the problem, so it's reasonable to start by analysing checkout-service.log
 
 Here we can see several timeout errors while aqcuiring db pool conections. This is when the incident started
