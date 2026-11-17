@@ -1,6 +1,7 @@
 from dataclasses import dataclass
 from datetime import datetime
 from pathlib import Path
+from typing import Any
 
 from triage.tools.matching import match_query
 
@@ -15,6 +16,13 @@ class LogLine:
     def __str__(self) -> str:
         return self.raw_line
 
+    def to_record(self) -> dict[str, Any]:
+        return {
+            "file": self.file_name,
+            "line": self.line_number,
+            "text": self.raw_line,
+        }
+
 
 @dataclass
 class LogFile:
@@ -23,6 +31,15 @@ class LogFile:
 
     def __str__(self) -> str:
         return f"{self.path} {self.lines}"
+
+
+@dataclass
+class SearchResults:
+    query: str
+    total_matches: int
+    returned: int
+    truncated: bool
+    results: list[dict[str, Any]]
 
 
 def from_line(line: str, number: int, log_file: Path) -> "LogLine":
@@ -53,12 +70,22 @@ def search_log_file(log_file: Path, search_term: str) -> list[LogLine]:
     return [line for line in log_file.lines if match_query(search_term, line.raw_line)]
 
 
-def search_log_files(log_files: list[Path], search_term: str, max_results: int = 200) -> list[LogLine]:
+def search_log_files(log_files: list[Path], search_term: str) -> list[LogLine]:
     log_lines = []
     for log_file in log_files:
         log_lines.extend(search_log_file(log_file, search_term))
-    return sorted(log_lines, key=lambda x: x.timestamp)[:max_results]
+    return sorted(log_lines, key=lambda x: x.timestamp)
 
 
-def search_logs(log_files: list[Path], search_term: str, max_results: int = 200) -> list[LogLine]:
-    results = search_log_files(log_files, search_term, max_results)
+def search_logs(
+    log_files: list[Path], search_term: str, max_results: int = 20
+) -> SearchResults:
+    results = search_log_files(log_files, search_term)
+    search_results = SearchResults(
+        query=search_term,
+        total_matches=len(results),
+        returned=len(results[:max_results]),
+        truncated=len(results) > max_results,
+        results=[result.to_record() for result in results[:max_results]],
+    )
+    return search_results

@@ -1,6 +1,11 @@
 import pytest
 from datetime import datetime
-from triage.tools.search_logs import read_log_file, search_log_file, search_log_files, search_logs
+from triage.tools.search_logs import (
+    read_log_file,
+    search_log_file,
+    search_log_files,
+    search_logs,
+)
 
 
 LOG_FILES = [
@@ -94,6 +99,17 @@ def test_search_log_files(search_term, expected_count, log_files):
     assert first_line.file_name in [log_file.name for log_file in log_files]
 
 
-def test_search_log_files_max_results(log_files):
-    log_lines = search_log_files(log_files, "upstream", max_results=10)  
-    assert len(log_lines) == 10
+def test_search_logs(log_files):
+    search_results = search_logs(log_files, "upstream", max_results=10)
+    assert search_results is not None
+    assert search_results.query == "upstream"
+    assert search_results.total_matches == 14
+    assert search_results.returned == 10
+    assert search_results.truncated == True
+    assert len(search_results.results) == 10
+    assert all(isinstance(result, dict) for result in search_results.results)
+    assert all(
+        key in result
+        for key in ["file", "line", "text"]
+        for result in search_results.results
+    )

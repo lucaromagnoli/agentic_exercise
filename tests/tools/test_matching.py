@@ -18,5 +18,3 @@ from triage.tools.matching import match_query
 )
 def test_match_query(query, log_line, expected):
     assert match_query(query, log_line) == expected
-
-   
