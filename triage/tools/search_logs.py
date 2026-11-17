@@ -35,7 +35,7 @@ def read_log_lines(log_file: Path) -> list[LogLine]:
     lines = []
     with open(log_file, "r") as file:
         for index, line in enumerate(file, start=1):
-            lines.append(from_line(line, index))
+            lines.append(from_line(line.strip(), index))
     return lines
 
 
