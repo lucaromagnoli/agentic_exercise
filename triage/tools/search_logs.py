@@ -7,6 +7,7 @@ from triage.tools.matching import match_query
 
 @dataclass
 class LogLine:
+    file_name: str
     line_number: int
     timestamp: datetime
     raw_line: str
@@ -24,9 +25,10 @@ class LogFile:
         return f"{self.path} {self.lines}"
 
 
-def from_line(line: str, number: int) -> "LogLine":
+def from_line(line: str, number: int, log_file: Path) -> "LogLine":
     timestamp = line.split()[0]
     return LogLine(
+        file_name=log_file.name,
         line_number=number,
         timestamp=datetime.fromisoformat(timestamp),
         raw_line=line,
@@ -37,7 +39,7 @@ def read_log_lines(log_file: Path) -> list[LogLine]:
     lines = []
     with open(log_file, "r") as file:
         for index, line in enumerate(file, start=1):
-            lines.append(from_line(line.strip(), index))
+            lines.append(from_line(line.strip(), index, log_file))
     return lines
 
 
