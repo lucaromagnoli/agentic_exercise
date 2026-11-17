@@ -1,12 +1,13 @@
-import pytest
 from datetime import datetime
+
+import pytest
+
 from triage.tools.search_logs import (
     read_log_file,
     search_log_file,
     search_log_files,
     search_logs,
 )
-
 
 LOG_FILES = [
     "api-gateway.log",

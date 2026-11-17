@@ -9,7 +9,6 @@ from triage.tools.matching import match_query
         ("upstream", "upstream", True),
         ("upstream", "upstream is working", True),
         ("upstream", "apstream is not working", False),
-        ("upstream", "upstream is working", True),
         ("CPU", "cpu", True),
         ("active connections", "connections active", True),
         ("", "upstream", False),

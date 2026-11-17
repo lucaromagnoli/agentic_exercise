@@ -1,6 +1,7 @@
+from collections.abc import Iterator
 from dataclasses import asdict, dataclass
 from pathlib import Path
-from typing import Any, Iterator, TextIO
+from typing import Any
 
 
 @dataclass
