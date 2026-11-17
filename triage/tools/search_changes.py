@@ -1,6 +1,6 @@
 from dataclasses import asdict, dataclass
 from pathlib import Path
-from typing import Any, TextIO
+from typing import Any, Iterator, TextIO
 
 
 @dataclass
@@ -13,7 +13,7 @@ class ChangeLog:
         return asdict(self)
 
 
-def iter_change_log(change_log_file: Path) -> list[ChangeLog]:
+def iter_change_log(change_log_file: Path) -> Iterator[dict[str, Any]]:
     with open(change_log_file, "r") as file_handle:
         lines = file_handle.readlines()
     for line_number, line in enumerate(lines):
