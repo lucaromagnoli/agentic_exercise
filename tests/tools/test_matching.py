@@ -12,6 +12,8 @@ from triage.tools.matching import match_query
         ("upstream", "upstream is working", True),
         ("CPU", "cpu", True),
         ("active connections", "connections active", True),
+        ("", "upstream", False),
+        ("  ", "upstream", False),
     ],
 )
 def test_match_query(query, log_line, expected):

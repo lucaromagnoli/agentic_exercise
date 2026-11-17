@@ -2,6 +2,8 @@ from dataclasses import dataclass
 from datetime import datetime
 from pathlib import Path
 
+from triage.tools.matching import match_query
+
 
 @dataclass
 class LogLine:
@@ -46,7 +48,7 @@ def read_log_file(log_file: Path) -> LogFile:
 
 def search_log_file(log_file: Path, search_term: str) -> list[LogLine]:
     log_file = read_log_file(log_file)
-    return [line for line in log_file.lines if search_term in line.raw_line]
+    return [line for line in log_file.lines if match_query(search_term, line.raw_line)]
 
 
 def search_logs(log_files: list[Path], search_term: str, max_results: int = 200) -> list[LogLine]:
