@@ -15,6 +15,16 @@ def test_parse_change_log(change_log_file):
         assert "id" in chg
         assert "title" in chg
         assert "text" in chg
+
+
+def test_parse_change_log_entry(change_log_file):
+    changes = list(iter_change_log(change_log_file))
+    assert len(changes) == 11
+    found = False
+    for chg in changes:
         if chg["id"] == "CHG-1026":
-            assert chg["title"] == "Quarterly runbook review"
-            assert chg["text"].startswith("- **Applied:** ")
+            found = True
+            break
+    assert found
+    assert chg["title"] == "Quarterly runbook review"
+    assert chg["text"].startswith("- **Applied:** ")
