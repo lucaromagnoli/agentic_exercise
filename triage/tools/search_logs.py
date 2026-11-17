@@ -44,6 +44,13 @@ def read_log_file(log_file: Path) -> LogFile:
     return LogFile(path=log_file, lines=lines)
 
 
-def search_logs(log_file: Path, search_term: str) -> list[LogLine]:
+def search_log_file(log_file: Path, search_term: str) -> list[LogLine]:
     log_file = read_log_file(log_file)
     return [line for line in log_file.lines if search_term in line.raw_line]
+
+
+def search_logs(log_files: list[Path], search_term: str, max_results: int = 200) -> list[LogLine]:
+    log_lines = []
+    for log_file in log_files:
+        log_lines.extend(search_log_file(log_file, search_term))
+    return sorted(log_lines, key=lambda x: x.timestamp)[:max_results]
