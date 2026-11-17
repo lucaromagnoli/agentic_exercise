@@ -15,3 +15,6 @@ def test_parse_change_log(change_log_file):
         assert "id" in chg
         assert "title" in chg
         assert "text" in chg
+        if chg["id"] == "CHG-1026":
+            assert chg["title"] == "Quarterly runbook review"
+            assert chg["text"].startswith("- **Applied:** ")
