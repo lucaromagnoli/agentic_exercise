@@ -42,3 +42,8 @@ def read_log_lines(log_file: Path) -> list[LogLine]:
 def read_log_file(log_file: Path) -> LogFile:
     lines = read_log_lines(log_file)
     return LogFile(path=log_file, lines=lines)
+
+
+def search_logs(log_file: Path, search_term: str) -> list[LogLine]:
+    log_file = read_log_file(log_file)
+    return [line for line in log_file.lines if search_term in line.raw_line]
