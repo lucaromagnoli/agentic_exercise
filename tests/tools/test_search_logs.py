@@ -116,6 +116,21 @@ def test_search_logs(log_files):
 
 
 def test_search_logs_empty_query(log_files):
-    search_results = search_logs(log_files, "", max_results=10)
+    search_results = search_logs(log_files, " ", max_results=10)
     assert search_results is not None
     assert search_results["error"] == "query must contain at least one term"
+
+def test_search_logs_one_result(log_files):
+    search_results = search_logs(log_files, "dead letter queue")
+    assert search_results is not None
+    assert search_results["query"] == "dead letter queue"
+    assert search_results["total_matches"] == 1
+    assert search_results["returned"] == 1
+    assert search_results["truncated"] == False
+    assert len(search_results["results"]) == 1
+    assert all(isinstance(result, dict) for result in search_results["results"])
+    assert all(
+        key in result
+        for key in ["file", "line", "text"]
+        for result in search_results["results"]
+    )
