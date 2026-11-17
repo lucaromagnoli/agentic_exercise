@@ -120,6 +120,7 @@ def test_search_logs_empty_query(log_files):
     assert search_results is not None
     assert search_results["error"] == "query must contain at least one term"
 
+
 def test_search_logs_one_result(log_files):
     search_results = search_logs(log_files, "dead letter queue")
     assert search_results is not None
@@ -128,9 +129,6 @@ def test_search_logs_one_result(log_files):
     assert search_results["returned"] == 1
     assert search_results["truncated"] == False
     assert len(search_results["results"]) == 1
-    assert all(isinstance(result, dict) for result in search_results["results"])
-    assert all(
-        key in result
-        for key in ["file", "line", "text"]
-        for result in search_results["results"]
-    )
+    assert search_results["results"][0]["file"] == "recon-worker.log"
+    assert search_results["results"][0]["line"] == 12
+    assert search_results["results"][0]["text"] == "2026-08-05T02:31:11Z  recon-worker  WARN   dead letter queue depth rising queue=reconciliation.dlq depth=1 growth=1/15m"
