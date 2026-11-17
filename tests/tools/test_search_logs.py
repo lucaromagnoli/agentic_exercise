@@ -102,14 +102,20 @@ def test_search_log_files(search_term, expected_count, log_files):
 def test_search_logs(log_files):
     search_results = search_logs(log_files, "upstream", max_results=10)
     assert search_results is not None
-    assert search_results.query == "upstream"
-    assert search_results.total_matches == 14
-    assert search_results.returned == 10
-    assert search_results.truncated == True
-    assert len(search_results.results) == 10
-    assert all(isinstance(result, dict) for result in search_results.results)
+    assert search_results["query"] == "upstream"
+    assert search_results["total_matches"] == 14
+    assert search_results["returned"] == 10
+    assert search_results["truncated"] == True
+    assert len(search_results["results"]) == 10
+    assert all(isinstance(result, dict) for result in search_results["results"])
     assert all(
         key in result
         for key in ["file", "line", "text"]
-        for result in search_results.results
+        for result in search_results["results"]
     )
+
+
+def test_search_logs_empty_query(log_files):
+    search_results = search_logs(log_files, "", max_results=10)
+    assert search_results is not None
+    assert search_results["error"] == "query must contain at least one term"
