@@ -1,4 +1,4 @@
-from dataclasses import dataclass
+from dataclasses import dataclass, asdict
 from datetime import datetime
 from pathlib import Path
 from typing import Any
@@ -41,6 +41,9 @@ class SearchResults:
     truncated: bool
     results: list[dict[str, Any]]
 
+    def to_dict(self) -> dict[str, Any]:
+        return asdict(self)
+
 
 def from_line(line: str, number: int, log_file: Path) -> "LogLine":
     timestamp = line.split()[0]
@@ -79,7 +82,9 @@ def search_log_files(log_files: list[Path], search_term: str) -> list[LogLine]:
 
 def search_logs(
     log_files: list[Path], search_term: str, max_results: int = 20
-) -> SearchResults:
+) -> dict[str, Any]:
+    if search_term.strip() == "":
+        return {"error": "query must contain at least one term"}
     results = search_log_files(log_files, search_term)
     search_results = SearchResults(
         query=search_term,
@@ -88,4 +93,4 @@ def search_logs(
         truncated=len(results) > max_results,
         results=[result.to_record() for result in results[:max_results]],
     )
-    return search_results
+    return search_results.to_dict()
