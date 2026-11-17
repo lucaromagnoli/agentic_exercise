@@ -1,5 +1,5 @@
 import pytest
-
+from datetime import datetime
 from triage.tools.search_logs import read_log_file
 
 
@@ -9,23 +9,24 @@ def log_file(request, datadir):
 
 
 @pytest.mark.parametrize(
-    "log_file", 
+    "log_file",
     [
-        "api-gateway.log", 
+        "api-gateway.log",
         "checkout-service.log",
         "payments-worker.log",
-       "platform-events.log",
-       "postgres.log",
-       "recon-worker.log",
-       "search-service.log",
-    ], 
-    indirect=True)
+        "platform-events.log",
+        "postgres.log",
+        "recon-worker.log",
+        "search-service.log",
+    ],
+    indirect=True,
+)
 def test_read_log_file(log_file):
     log_file = read_log_file(log_file)
     assert log_file.path is not None
     assert log_file.lines is not None
     assert len(log_file.lines) > 0
-    assert log_file.lines[0].timestamp is not None
-    assert log_file.lines[0].service is not None
-    assert log_file.lines[0].level is not None
-    assert log_file.lines[0].message is not None
+    first_line = log_file.lines[0]
+    assert isinstance(first_line.timestamp, datetime)
+    assert isinstance(first_line.line_number, int)
+    assert isinstance(first_line.raw_line, str)

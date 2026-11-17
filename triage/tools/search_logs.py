@@ -5,13 +5,12 @@ from pathlib import Path
 
 @dataclass
 class LogLine:
+    line_number: int
     timestamp: datetime
-    level: str
-    message: str
-    service: str
+    raw_line: str
 
     def __str__(self) -> str:
-        return f"{self.timestamp} {self.service} {self.level} {self.message}"
+        return self.raw_line
 
 
 @dataclass
@@ -23,18 +22,20 @@ class LogFile:
         return f"{self.path} {self.lines}"
 
 
-def from_line(line: str) -> "LogLine":
-    timestamp, service, level, message = line.strip().split(maxsplit=3)
+def from_line(line: str, number: int) -> "LogLine":
+    timestamp = line.split()[0]
     return LogLine(
-        timestamp=datetime.fromisoformat(timestamp), service=service, level=level, message=message
+        line_number=number,
+        timestamp=datetime.fromisoformat(timestamp),
+        raw_line=line,
     )
 
 
 def read_log_lines(log_file: Path) -> list[LogLine]:
     lines = []
     with open(log_file, "r") as file:
-        for line in file:
-            lines.append(from_line(line))
+        for index, line in enumerate(file, start=1):
+            lines.append(from_line(line, index))
     return lines
 
 
