@@ -78,12 +78,7 @@ def test_search_runbook_empty_query(datadir):
     assert rb_search_results["error"] == "query must contain at least one term"
 
 
-@pytest.mark.parametrize(
-    "runbook_file",
-    RB_FILES,
-    indirect=True,
-)
-def test_search_runbook_ordered_results(runbook_file, datadir):
+def test_search_runbook_ordered_results(datadir):
     rb_search_results = search_runbook(datadir, "database")
     assert rb_search_results is not None
     assert rb_search_results["results"] == sorted(
