@@ -5,7 +5,7 @@ from datetime import datetime
 from pathlib import Path
 from typing import Any
 
-from triage.tools.matching import match_query
+from triage.tools.common import common_error, match_query
 
 
 @dataclass
@@ -55,6 +55,8 @@ def match_terms(change: ChangeLog, query: str) -> bool:
 def search_changes(
     change_log_file: Path, query: str, max_results: int = 5
 ) -> dict[str, Any]:
+    if query.strip() == "":
+        return common_error()
     changes = list(iter_change_log(change_log_file))
     changes.sort(key=lambda x: x.date, reverse=True)
     results = [change.as_dict() for change in changes if match_terms(change, query)]

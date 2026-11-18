@@ -1,6 +1,6 @@
 import pytest
 
-from triage.tools.matching import match_query
+from triage.tools.common import match_query
 
 
 @pytest.mark.parametrize(

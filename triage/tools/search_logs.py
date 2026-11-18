@@ -3,7 +3,7 @@ from datetime import datetime
 from pathlib import Path
 from typing import Any
 
-from triage.tools.matching import match_query
+from triage.tools.common import common_error, match_query
 
 
 @dataclass
@@ -84,7 +84,7 @@ def search_logs(
     log_files: list[Path], search_term: str, max_results: int = 20
 ) -> dict[str, Any]:
     if search_term.strip() == "":
-        return {"error": "query must contain at least one term"}
+        return common_error()
     results = search_log_files(log_files, search_term)
     search_results = SearchResults(
         query=search_term,

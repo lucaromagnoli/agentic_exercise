@@ -32,13 +32,38 @@ def test_parse_change_log_entry(change_log_file):
 
 
 @pytest.mark.parametrize(
-    "query, expected_results",
+    "query, expected_total_matches, expected_returned, expected_truncated",
     [
-        ("Quarterly runbook review", 1),
-        ("db.pool.max", 2),
+        ("Quarterly runbook review", 1, 1, False),
+        ("db.pool.max", 2, 2, False),
     ],
 )
-def test_search_changes(change_log_file, query, expected_results):
+def test_search_changes(
+    change_log_file,
+    query,
+    expected_total_matches,
+    expected_returned,
+    expected_truncated,
+):
     changes = search_changes(change_log_file, query)
-    assert changes["total_matches"] == expected_results
-    assert changes["returned"] == expected_results
+    assert changes["total_matches"] == expected_total_matches
+    assert changes["returned"] == expected_returned
+    assert changes["truncated"] == expected_truncated
+
+
+def test_search_changes_empty_query(change_log_file):
+    changes = search_changes(change_log_file, "")
+    assert changes["error"] == "query must contain at least one term"
+
+
+def test_search_changes_truncation(change_log_file):
+    changes = search_changes(change_log_file, "checkout", max_results=2)
+    assert changes["total_matches"] == 4
+    assert changes["returned"] == 2
+    assert changes["truncated"] == True
+
+
+def test_search_changes_order(change_log_file):
+    changes = search_changes(change_log_file, "db.pool.max")
+    ids = [chg["id"] for chg in changes["results"]]
+    assert ids == ["CHG-1044", "CHG-1042"]
