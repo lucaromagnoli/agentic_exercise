@@ -50,8 +50,9 @@ def search_runbook(
         for entry in iter_runbook_entries(
             runbook_file, get_source_name(runbook_file, runbook_dir)
         ):
-            if match_query(query, entry.text):
+            if match_query(query, f"{entry.id} {entry.title} {entry.text}"):
                 results.append(entry)
+    results = sorted(results, key=lambda x: x.id)
     return SearchRunbookResult(
         query=query,
         total_matches=len(results),

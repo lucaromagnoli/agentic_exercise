@@ -52,15 +52,13 @@ def test_iter_runbook_entries(runbook_file, source):
 @pytest.mark.parametrize(
     "query, expected_total_matches, expected_returned",
     [
-        ("database", 2, 2),
+        ("database", 3, 3),
         ("checkout", 3, 3),
         ("payments", 2, 2),
         ("platform", 4, 3),
     ],
 )
-def test_search_runbook(
-    datadir, query, expected_total_matches, expected_returned
-):
+def test_search_runbook(datadir, query, expected_total_matches, expected_returned):
     rb_search_results = search_runbook(datadir, query)
     assert rb_search_results is not None
     assert rb_search_results["query"] == query
@@ -74,8 +72,20 @@ def test_search_runbook(
     )
 
 
-
 def test_search_runbook_empty_query(datadir):
     rb_search_results = search_runbook(datadir, "")
     assert rb_search_results is not None
     assert rb_search_results["error"] == "query must contain at least one term"
+
+
+@pytest.mark.parametrize(
+    "runbook_file",
+    RB_FILES,
+    indirect=True,
+)
+def test_search_runbook_ordered_results(runbook_file, datadir):
+    rb_search_results = search_runbook(datadir, "database")
+    assert rb_search_results is not None
+    assert rb_search_results["results"] == sorted(
+        rb_search_results["results"], key=lambda x: x["id"]
+    )
