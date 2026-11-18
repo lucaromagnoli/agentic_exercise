@@ -41,7 +41,10 @@ def parse_incident_file(incident_file: Path) -> Incident:
     report_prefix = "## Report"
     for line_number, line in enumerate(lines):
         if line.startswith(incident_prefix):
-            parts = [p.strip() for p in line.replace("# ", "").strip().split(" - ")]
+            parts = [
+                p.strip()
+                for p in line.replace("# ", "").strip().split(" - ", maxsplit=1)
+            ]
             id_, title = "-".join(parts[0:1]), "-".join(parts[1:])
         elif line.startswith(raised_prefix):
             raised_at = datetime.strptime(
