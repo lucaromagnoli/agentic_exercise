@@ -50,4 +50,10 @@ def parse_incident_file(incident_file: Path) -> Incident:
         elif line.startswith(report_prefix):
             report = "".join(lines[line_number + 1 :]).strip()
             break
-    return Incident(raised_at, raised_by, severity, affected_services, report)
+    return Incident(
+        raised_at=raised_at,
+        raised_by=raised_by,
+        severity=severity,
+        affected_services=affected_services,
+        report=report,
+    )
