@@ -25,7 +25,7 @@ class SearchRunbookResult:
         return asdict(self)
 
 
-def get_source_name(runbook_file: Path, runbook_dir: Path) -> bool:
+def get_source_name(runbook_file: Path, runbook_dir: Path) -> str:
     """Get the source name of a runbook file, relative to the runbook directory."""
     return runbook_file.relative_to(runbook_dir).as_posix()
 

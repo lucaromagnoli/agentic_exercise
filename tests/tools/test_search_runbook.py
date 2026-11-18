@@ -1,7 +1,10 @@
-
 import pytest
 
-from triage.tools.search_runbook import RunbookEntry, get_source_name, iter_runbook_entries
+from triage.tools.search_runbook import (
+    RunbookEntry,
+    get_source_name,
+    iter_runbook_entries,
+)
 
 RB_FILES = [
     "search-and-caching.md",
