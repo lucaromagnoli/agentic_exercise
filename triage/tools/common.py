@@ -27,7 +27,7 @@ def common_error(
 
 def iter_sections(
     file_path: Path,
-    section_prefix: str,
+    section_prefix: str = "##",
 ) -> Iterator[Section]:
     """Iterate over sections in a file."""
     with open(file_path, "r") as file_handle:
