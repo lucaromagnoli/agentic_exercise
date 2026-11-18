@@ -22,16 +22,6 @@ def runbook_file(request, datadir):
 
 
 @pytest.fixture
-def expected(request):
-    return request.param
-
-
-@pytest.fixture
-def source(request):
-    return request.param
-
-
-@pytest.fixture
 def runbook_files(datadir):
     return [datadir / log_file for log_file in RB_FILES]
 
@@ -39,7 +29,7 @@ def runbook_files(datadir):
 @pytest.mark.parametrize(
     "runbook_file, expected",
     [(file, file) for file in RB_FILES],
-    indirect=True,
+    indirect=["runbook_file"],
 )
 def test_get_source_name(runbook_file, expected, datadir):
     assert get_source_name(runbook_file, datadir) == expected
@@ -48,7 +38,7 @@ def test_get_source_name(runbook_file, expected, datadir):
 @pytest.mark.parametrize(
     "runbook_file, source",
     [(file, file) for file in RB_FILES],
-    indirect=True,
+    indirect=["runbook_file"],
 )
 def test_iter_runbook_entries(runbook_file, source):
 

@@ -30,11 +30,6 @@ def log_files(datadir):
     return [datadir / log_file for log_file in LOG_FILES]
 
 
-@pytest.fixture
-def search_term(request):
-    return request.param
-
-
 @pytest.mark.parametrize(
     "log_file",
     LOG_FILES,
@@ -62,7 +57,7 @@ def test_read_log_file(log_file):
         ("recon-worker.log", "dead letter queue"),
         ("search-service.log", "cpu"),
     ],
-    indirect=True,
+    indirect=["log_file"],
 )
 def test_search_log_file(log_file, search_term):
     log_lines = search_log_file(log_file, search_term)
