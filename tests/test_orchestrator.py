@@ -45,7 +45,7 @@ def test_parse_incident_file(incident_file):
                 "raised_by": "Priya Raman, Customer Support Lead",
                 "severity": "Sev-2",
                 "affected_services": 'unclear, reported as "checkout"',
-                "report": "Support started getting contacts around 19:35 UTC. Customers get an error page when theypress Pay. It is not everyone, but it is a lot of people, and it seems to be getting worserather than better. A few customers said it worked on the second or third try.One of the engineers in the channel thinks it is the payment provider having problemsagain, like earlier this evening. Nobody has confirmed that.We need to know what actually broke, when it started, and what we are supposed to doabout it.",
+                "report": "Support started getting contacts around 19:35 UTC. Customers get an error page when they\npress Pay. It is not everyone, but it is a lot of people, and it seems to be getting worse\nrather than better. A few customers said it worked on the second or third try.\n\nOne of the engineers in the channel thinks it is the payment provider having problems\nagain, like earlier this evening. Nobody has confirmed that.\n\nWe need to know what actually broke, when it started, and what we are supposed to do\nabout it.",
             },
         )
     ],

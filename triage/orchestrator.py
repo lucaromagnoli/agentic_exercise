@@ -45,8 +45,7 @@ def parse_incident_file(incident_file: Path) -> dict[str, Any]:
         elif line.startswith(affected_services_prefix):
             affected_services = line.split(affected_services_prefix)[1].strip()
         elif line.startswith(report_prefix):
-            report_lines = [l.strip() for l in lines[line_number + 1 :] if l.strip()]
-            report = "".join(report_lines).strip()
+            report = "".join(lines[line_number + 1 :]).strip()
             break
     return {
         "raised_at": raised_at,
