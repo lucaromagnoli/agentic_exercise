@@ -5,7 +5,7 @@ from datetime import datetime
 from pathlib import Path
 from typing import Any
 
-from triage.tools.common import common_error, match_query
+from triage.tools.common import common_error, iter_sections, match_query
 
 
 @dataclass
@@ -20,11 +20,13 @@ class ChangeLog:
 
 
 def iter_change_log(change_log_file: Path) -> Iterator[ChangeLog]:
-    with open(change_log_file, "r") as file_handle:
-        lines = file_handle.readlines()
-    for line_number, line in enumerate(lines):
-        if line.startswith("## CHG"):
-            yield parse_change_log_entry(line_number, lines)
+    for section in iter_sections(change_log_file, "## CHG"):
+        yield ChangeLog(
+            id=section.id,
+            title=section.title,
+            text=section.text,
+            date=find_date(section.text),
+        )
 
 
 def find_date(text: str) -> datetime:
@@ -35,16 +37,6 @@ def find_date(text: str) -> datetime:
             if date_match:
                 return datetime.strptime(date_match.group(0), "%Y-%m-%d %H:%M")
     return None
-
-
-def parse_change_log_entry(line_number: int, lines: list[str]) -> ChangeLog:
-    code_title = lines[line_number].split("##")[1].strip()
-    code, title = [x.strip() for x in code_title.split(" - ", maxsplit=1)]
-    end_line_number = line_number + 1
-    while end_line_number < len(lines) and not lines[end_line_number].startswith("---"):
-        end_line_number += 1
-    text = "".join(lines[line_number + 1 : end_line_number]).strip()
-    return ChangeLog(id=code, title=title, text=text, date=find_date(text))
 
 
 def match_terms(change: ChangeLog, query: str) -> bool:
