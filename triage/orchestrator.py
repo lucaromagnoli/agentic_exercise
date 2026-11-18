@@ -1,6 +1,7 @@
 from dataclasses import asdict, dataclass
 from datetime import datetime
 from pathlib import Path
+from datetime import timezone
 from typing import Any
 
 from triage import INCIDENTS_DIR
@@ -49,7 +50,7 @@ def parse_incident_file(incident_file: Path) -> Incident:
         elif line.startswith(raised_prefix):
             raised_at = datetime.strptime(
                 line.split(raised_prefix)[1].strip(), "%Y-%m-%d %H:%M UTC"
-            )
+            ).replace(tzinfo=timezone.utc)
         elif line.startswith(raised_by_prefix):
             raised_by = line.split(raised_by_prefix)[1].strip()
         elif line.startswith(severity_prefix):
