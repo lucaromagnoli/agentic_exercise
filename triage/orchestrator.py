@@ -1,4 +1,4 @@
-from dataclasses import dataclass
+from dataclasses import asdict, dataclass
 from datetime import datetime
 from pathlib import Path
 from typing import Any
@@ -11,8 +11,11 @@ class Incident:
     raised_at: datetime
     raised_by: str
     severity: str
-    affected_services: list[str]
+    affected_services: str
     report: str
+
+    def to_dict(self) -> dict[str, Any]:
+        return asdict(self)
 
 
 def retrieve_incident_file(
@@ -47,10 +50,4 @@ def parse_incident_file(incident_file: Path) -> dict[str, Any]:
         elif line.startswith(report_prefix):
             report = "".join(lines[line_number + 1 :]).strip()
             break
-    return {
-        "raised_at": raised_at,
-        "raised_by": raised_by,
-        "severity": severity,
-        "affected_services": affected_services,
-        "report": report,
-    }
+    return Incident(raised_at, raised_by, severity, affected_services, report)

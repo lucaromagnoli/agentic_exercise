@@ -53,4 +53,4 @@ def test_parse_incident_file(incident_file):
 )
 def test_parse_incident_file_fields(incident_file, expected):
     incident = parse_incident_file(incident_file)
-    assert incident == expected
+    assert incident.to_dict() == expected
