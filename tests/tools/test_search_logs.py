@@ -21,13 +21,13 @@ LOG_FILES = [
 
 
 @pytest.fixture
-def log_file(request, datadir):
-    return datadir / request.param
+def log_file(request, data_dir):
+    return data_dir / "logs" / request.param
 
 
 @pytest.fixture
-def log_files(datadir):
-    return [datadir / log_file for log_file in LOG_FILES]
+def log_files(data_dir):
+    return [data_dir / "logs" / log_file for log_file in LOG_FILES]
 
 
 @pytest.mark.parametrize(

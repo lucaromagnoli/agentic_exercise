@@ -1,8 +1,0 @@
-2026-08-12T18:02:41Z  payments-worker  WARN   provider gateway responded 504 provider=stripe attempt=1 retry_in_ms=500
-2026-08-12T18:03:12Z  payments-worker  WARN   provider gateway responded 504 provider=stripe attempt=2 retry_in_ms=1000
-2026-08-12T18:04:55Z  payments-worker  WARN   provider timeout provider=stripe elapsed_ms=8000 charge_id=ch_71204
-2026-08-12T18:07:33Z  payments-worker  INFO   provider recovered provider=stripe success_rate=100% window=5m
-2026-08-12T19:31:40Z  payments-worker  INFO   queue depth normal queue=charges depth=12
-2026-08-12T19:36:19Z  payments-worker  INFO   queue depth normal queue=charges depth=3 note=fewer_charges_enqueued
-2026-08-12T19:48:02Z  payments-worker  INFO   provider healthy provider=stripe success_rate=100% window=5m
-2026-08-12T20:10:27Z  payments-worker  INFO   queue depth normal queue=charges depth=15

@@ -18,13 +18,18 @@ RB_FILES = [
 
 
 @pytest.fixture
-def runbook_file(request, datadir):
-    return datadir / request.param
+def runbook_dir(data_dir):
+    return data_dir / "runbook"
 
 
 @pytest.fixture
-def runbook_files(datadir):
-    return [datadir / log_file for log_file in RB_FILES]
+def runbook_file(request, runbook_dir):
+    return runbook_dir / request.param
+
+
+@pytest.fixture
+def runbook_files(runbook_dir):
+    return [runbook_dir / log_file for log_file in RB_FILES]
 
 
 @pytest.mark.parametrize(
@@ -32,8 +37,9 @@ def runbook_files(datadir):
     [(file, file) for file in RB_FILES],
     indirect=["runbook_file"],
 )
-def test_get_source_name(runbook_file, expected, datadir):
-    assert get_source_name(runbook_file, datadir) == expected
+def test_get_source_name(runbook_file, expected, data_dir):
+    runbook_dir = data_dir / "runbook"
+    assert get_source_name(runbook_file, runbook_dir) == expected
 
 
 @pytest.mark.parametrize(
@@ -58,8 +64,8 @@ def test_iter_runbook_entries(runbook_file, source):
         ("platform", 4, 3),
     ],
 )
-def test_search_runbook(datadir, query, expected_total_matches, expected_returned):
-    rb_search_results = search_runbook(datadir, query)
+def test_search_runbook(runbook_dir, query, expected_total_matches, expected_returned):
+    rb_search_results = search_runbook(runbook_dir, query)
     assert rb_search_results is not None
     assert rb_search_results["query"] == query
     assert rb_search_results["total_matches"] == expected_total_matches
@@ -72,14 +78,14 @@ def test_search_runbook(datadir, query, expected_total_matches, expected_returne
     )
 
 
-def test_search_runbook_empty_query(datadir):
-    rb_search_results = search_runbook(datadir, "")
+def test_search_runbook_empty_query(runbook_dir):
+    rb_search_results = search_runbook(runbook_dir, "")
     assert rb_search_results is not None
     assert rb_search_results["error"] == "query must contain at least one term"
 
 
-def test_search_runbook_ordered_results(datadir):
-    rb_search_results = search_runbook(datadir, "database")
+def test_search_runbook_ordered_results(runbook_dir):
+    rb_search_results = search_runbook(runbook_dir, "database")
     assert rb_search_results is not None
     assert rb_search_results["results"] == sorted(
         rb_search_results["results"], key=lambda x: x["id"]

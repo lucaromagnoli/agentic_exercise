@@ -2,14 +2,11 @@ from datetime import datetime
 from pathlib import Path
 from typing import Any
 
-from triage.tools import PROJECT_ROOT
-
-OUTDIR = PROJECT_ROOT / "out"
-LOGFILENAME = "comms.log"
+from triage import LOG_FILE_PATH
 
 
 def post_update(
-    text: str, max_characters: int = 600, log_file: Path = OUTDIR / LOGFILENAME
+    text: str, max_characters: int = 600, log_file: Path = LOG_FILE_PATH
 ) -> dict[str, Any]:
     """Post update to the logfile."""
     if len(text) > max_characters:

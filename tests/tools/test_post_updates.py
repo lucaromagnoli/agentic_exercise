@@ -1,11 +1,12 @@
 import pytest
 
-from triage.tools.post_update import LOGFILENAME, post_update
+from triage import LOG_FILE_NAME
+from triage.tools.post_update import post_update
 
 
 @pytest.fixture
 def log_file(datadir):
-    return datadir / "out" / LOGFILENAME
+    return datadir / "out" / LOG_FILE_NAME
 
 
 @pytest.mark.parametrize(

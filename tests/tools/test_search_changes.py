@@ -4,8 +4,8 @@ from triage.tools.search_changes import iter_change_log, search_changes
 
 
 @pytest.fixture
-def change_log_file(datadir):
-    return datadir / "change-log.md"
+def change_log_file(data_dir):
+    return data_dir / "changes" / "change-log.md"
 
 
 def test_parse_change_log(change_log_file):
