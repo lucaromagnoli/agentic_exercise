@@ -25,15 +25,13 @@ class SearchRunbookResult:
         return asdict(self)
 
 
-def get_source_name(runbook_file: Path) -> bool:
+def get_source_name(runbook_file: Path, runbook_dir: Path) -> bool:
     """Get the source name of a runbook file, relative to the runbook directory."""
-    runbook_index = runbook_file.parts.index("runbook")
-    return "/".join(runbook_file.parts[runbook_index + 1 :])
+    return runbook_file.relative_to(runbook_dir).as_posix()
 
 
-def iter_runbook_entries(runbook_file: Path) -> Iterator[RunbookEntry]:
+def iter_runbook_entries(runbook_file: Path, source: str) -> Iterator[RunbookEntry]:
     for section in iter_sections(runbook_file):
-        source = get_source_name(runbook_file)
         yield RunbookEntry(
             id=section.id,
             title=section.title,
