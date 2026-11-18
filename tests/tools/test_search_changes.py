@@ -60,7 +60,7 @@ def test_search_changes_truncation(change_log_file):
     changes = search_changes(change_log_file, "checkout", max_results=2)
     assert changes["total_matches"] == 4
     assert changes["returned"] == 2
-    assert changes["truncated"] == True
+    assert changes["truncated"] is True
 
 
 def test_search_changes_order(change_log_file):
