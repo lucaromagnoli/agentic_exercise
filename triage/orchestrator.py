@@ -8,6 +8,8 @@ from triage import INCIDENTS_DIR
 
 @dataclass
 class Incident:
+    id: str
+    title: str
     raised_at: datetime
     raised_by: str
     severity: str
@@ -31,13 +33,17 @@ def retrieve_incident_file(
 def parse_incident_file(incident_file: Path) -> Incident:
     with open(incident_file, "r") as f:
         lines = f.readlines()
+    incident_prefix = "# INC"
     raised_prefix = "- **Raised:**"
     raised_by_prefix = "- **Raised by:**"
     severity_prefix = "- **Severity:**"
     affected_services_prefix = "- **Affected services:**"
     report_prefix = "## Report"
     for line_number, line in enumerate(lines):
-        if line.startswith(raised_prefix):
+        if line.startswith(incident_prefix):
+            parts = [p.strip() for p in line.replace("# ", "").strip().split(" - ")]
+            id_, title = "-".join(parts[0:1]), "-".join(parts[1:])
+        elif line.startswith(raised_prefix):
             raised_at = datetime.strptime(
                 line.split(raised_prefix)[1].strip(), "%Y-%m-%d %H:%M UTC"
             )
@@ -51,6 +57,8 @@ def parse_incident_file(incident_file: Path) -> Incident:
             report = "".join(lines[line_number + 1 :]).strip()
             break
     return Incident(
+        id=id_,
+        title=title,
         raised_at=raised_at,
         raised_by=raised_by,
         severity=severity,

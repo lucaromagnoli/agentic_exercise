@@ -41,6 +41,8 @@ def test_parse_incident_file(incident_file):
         (
             "INC-2043.md",
             {
+                "id": "INC-2043",
+                "title": "Checkout failing during evening peak",
                 "raised_at": datetime(2026, 8, 12, 19, 38, 0),
                 "raised_by": "Priya Raman, Customer Support Lead",
                 "severity": "Sev-2",
