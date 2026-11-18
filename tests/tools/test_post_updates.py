@@ -4,7 +4,7 @@ from triage.tools.post_update import LOGFILENAME, post_update
 
 
 @pytest.fixture
-def delete_log_file(datadir):
+def log_file(datadir):
     return datadir / "out" / LOGFILENAME
 
 
@@ -17,11 +17,11 @@ def delete_log_file(datadir):
         ),
     ],
 )
-def test_post_update(text, expected, delete_log_file):
-    result = post_update(text, log_file=delete_log_file)
+def test_post_update(text, expected, log_file):
+    result = post_update(text, log_file=log_file)
     assert result == expected
 
 
-def test_post_update_max_characters(delete_log_file):
-    result = post_update("This is a test update" * 100, log_file=delete_log_file)
+def test_post_update_max_characters(log_file):
+    result = post_update("This is a test update" * 100, log_file=log_file)
     assert result["error"] == "update exceeds 600 characters"
