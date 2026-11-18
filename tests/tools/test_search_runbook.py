@@ -4,6 +4,7 @@ from triage.tools.search_runbook import (
     RunbookEntry,
     get_source_name,
     iter_runbook_entries,
+    search_runbook,
 )
 
 RB_FILES = [
@@ -46,3 +47,28 @@ def test_iter_runbook_entries(runbook_file, source):
     assert len(entries) > 0
     assert all(isinstance(entry, RunbookEntry) for entry in entries)
     assert all(entry.source == source for entry in entries)
+
+
+@pytest.mark.parametrize(
+    "query, expected_total_matches, expected_returned",
+    [
+        ("database", 2, 2),
+        ("checkout", 3, 3),
+        ("payments", 2, 2),
+        ("platform", 4, 3),
+    ],
+)
+def test_search_runbook(
+    datadir, query, expected_total_matches, expected_returned
+):
+    rb_search_results = search_runbook(datadir, query)
+    assert rb_search_results is not None
+    assert rb_search_results["query"] == query
+    assert rb_search_results["total_matches"] == expected_total_matches
+    assert rb_search_results["returned"] == expected_returned
+    assert all(isinstance(result, dict) for result in rb_search_results["results"])
+    assert all(
+        x in result
+        for x in ["id", "title", "source", "text"]
+        for result in rb_search_results["results"]
+    )
