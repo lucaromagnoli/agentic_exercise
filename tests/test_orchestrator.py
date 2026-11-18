@@ -1,4 +1,4 @@
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 
 import pytest
 
@@ -43,7 +43,7 @@ def test_parse_incident_file(incident_file):
             {
                 "id": "INC-2043",
                 "title": "Checkout failing during evening peak",
-                "raised_at": datetime(2026, 8, 12, 19, 38, 0, tzinfo=timezone.utc),
+                "raised_at": datetime(2026, 8, 12, 19, 38, 0, tzinfo=UTC),
                 "raised_by": "Priya Raman, Customer Support Lead",
                 "severity": "Sev-2",
                 "affected_services": 'unclear, reported as "checkout"',
