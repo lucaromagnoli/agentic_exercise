@@ -37,8 +37,7 @@ def runbook_files(runbook_dir):
     [(file, file) for file in RB_FILES],
     indirect=["runbook_file"],
 )
-def test_get_source_name(runbook_file, expected, data_dir):
-    runbook_dir = data_dir / "runbook"
+def test_get_source_name(runbook_file, expected, runbook_dir):
     assert get_source_name(runbook_file, runbook_dir) == expected
 
 

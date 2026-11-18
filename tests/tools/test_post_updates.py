@@ -5,8 +5,8 @@ from triage.tools.post_update import post_update
 
 
 @pytest.fixture
-def log_file(datadir):
-    return datadir / "out" / LOG_FILE_NAME
+def log_file(tmp_path):
+    return tmp_path / "out" / LOG_FILE_NAME
 
 
 @pytest.mark.parametrize(
