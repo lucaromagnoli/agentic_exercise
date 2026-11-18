@@ -3,7 +3,7 @@ from dataclasses import asdict, dataclass
 from pathlib import Path
 from typing import Any
 
-from triage.tools.common import iter_sections, match_query
+from triage.tools.common import common_error, iter_sections, match_query
 
 
 @dataclass
@@ -43,6 +43,8 @@ def iter_runbook_entries(runbook_file: Path, source: str) -> Iterator[RunbookEnt
 def search_runbook(
     runbook_dir: Path, query: str, max_results: int = 3
 ) -> dict[str, Any]:
+    if query.strip() == "":
+        return common_error()
     results = []
     for runbook_file in runbook_dir.rglob("*.md"):
         for entry in iter_runbook_entries(

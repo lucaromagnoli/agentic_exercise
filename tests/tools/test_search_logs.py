@@ -131,3 +131,4 @@ def test_search_logs_one_result(log_files):
         search_results["results"][0]["text"]
         == "2026-08-05T02:31:11Z  recon-worker  WARN   dead letter queue depth rising queue=reconciliation.dlq depth=1 growth=1/15m"
     )
+

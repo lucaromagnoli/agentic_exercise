@@ -72,3 +72,10 @@ def test_search_runbook(
         for x in ["id", "title", "source", "text"]
         for result in rb_search_results["results"]
     )
+
+
+
+def test_search_runbook_empty_query(datadir):
+    rb_search_results = search_runbook(datadir, "")
+    assert rb_search_results is not None
+    assert rb_search_results["error"] == "query must contain at least one term"
