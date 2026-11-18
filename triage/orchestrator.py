@@ -28,7 +28,7 @@ def retrieve_incident_file(
     return incident_file
 
 
-def parse_incident_file(incident_file: Path) -> dict[str, Any]:
+def parse_incident_file(incident_file: Path) -> Incident:
     with open(incident_file, "r") as f:
         lines = f.readlines()
     raised_prefix = "- **Raised:**"
