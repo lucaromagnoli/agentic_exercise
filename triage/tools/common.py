@@ -36,10 +36,10 @@ def iter_sections(
             yield parse_section(line_number, lines)
 
 
-def parse_section[T](
+def parse_section(
     line_number: int,
     lines: list[str],
-) -> T:
+) -> Section:
     id_title = lines[line_number].split("##")[1].strip()
     id_, title = [x.strip() for x in id_title.split(" - ", maxsplit=1)]
     end_line_number = line_number + 1
