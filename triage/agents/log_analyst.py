@@ -1,18 +1,10 @@
-from dataclasses import dataclass
-from pathlib import Path
 from typing import Any
 
 from pydantic_ai import Agent, RunContext
 
 from triage.agents import load_prompt
-from triage.agents.models import LogAnalysis
+from triage.agents.models import Dependencies, LogAnalysis
 from triage.tools.search_logs import search_logs as search_logs_tool
-
-
-@dataclass
-class Dependencies:
-    logs_dir: Path
-
 
 log_analyst_agent = Agent(
     "anthropic:claude-sonnet-5-5",

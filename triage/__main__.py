@@ -1,6 +1,7 @@
 import pprint
-from dotenv import load_dotenv
+
 import logfire
+from dotenv import load_dotenv
 
 from triage import INCIDENTS_DIR, LOGS_DIR
 from triage.agents.log_analyst import Dependencies, log_analyst_agent
