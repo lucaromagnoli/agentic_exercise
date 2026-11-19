@@ -16,3 +16,19 @@ venv/
 !.env.example
 
 .DS_Store
+
+.ruff_cache/
+.pytest_cache/
+.mypy_cache/
+.coverage
+.coverage.*
+.coverage.xml
+.coverage.json
+.coverage.yaml
+.coverage.yml
+.coverage.jsonl
+.coverage.jsonl.gz
+.coverage.jsonl.bz2
+.coverage.jsonl.xz
+
+.vscode/
