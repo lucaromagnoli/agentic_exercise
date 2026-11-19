@@ -1,4 +1,3 @@
-import pprint
 from dotenv import load_dotenv
 
 from triage import INCIDENTS_DIR, LOGS_DIR

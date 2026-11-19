@@ -36,5 +36,8 @@ log_analyst_agent = Agent(
 def search_logs(
     ctx: RunContext[Dependencies], query: str, max_results: int = 20
 ) -> dict[str, Any]:
+    """
+    Search the logs for the given query.
+    """
     log_files = sorted(ctx.deps.logs_dir.glob("*.log"))
     return search_logs_tool(log_files, query, max_results)
