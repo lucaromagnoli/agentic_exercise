@@ -16,4 +16,4 @@ result = log_analyst_agent.run_sync(
     parse_incident_file(INCIDENTS_DIR / "INC-2043.md").to_prompt(),
     deps=dependencies,
 )
-print(result.output.model_dump_json(indent=2))
+print(result)

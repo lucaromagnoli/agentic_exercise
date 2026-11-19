@@ -1,6 +1,7 @@
 from pathlib import Path
 
 TRIAGE_DIR = Path(__file__).parent
+PROMPTS_DIR = TRIAGE_DIR / "prompts"
 PROJECT_DIR = TRIAGE_DIR.parent
 DATA_DIR = PROJECT_DIR / "data"
 LOGS_DIR = DATA_DIR / "logs"
