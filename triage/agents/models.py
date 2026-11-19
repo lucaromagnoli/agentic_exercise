@@ -27,8 +27,8 @@ class LogEvent(BaseModel):
 
 
 class Hypothesis(BaseModel):
-    claim: str
-    why: str
+    claim: str = Field(description="The claim that the hypothesis is testing.")
+    why: str = Field(description="How the cited evidence leads to the verdict.")
     verdict: Literal["supported", "refuted", "inconclusive"]
     evidence: list[LogEvidence]
 
@@ -36,6 +36,8 @@ class Hypothesis(BaseModel):
 class LogAnalysis(BaseModel):
     events: list[LogEvent]
     failure_mode: str
-    onset_time: datetime
+    onset_time: datetime | None = Field(
+        description="The time of the failure, if known."
+    )
     hypotheses: list[Hypothesis]
     open_questions: list[str]
