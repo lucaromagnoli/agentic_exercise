@@ -19,6 +19,16 @@ class Incident:
     def to_dict(self) -> dict[str, Any]:
         return asdict(self)
 
+    def to_prompt(self) -> str:
+        return f"""
+        # Incident {self.id}
+        {self.title}
+        {self.raised_at}
+        {self.severity}
+        {self.affected_services}
+        {self.report}
+        """
+
 
 def retrieve_incident_file(
     incident_id: str, incidents_dir: Path = INCIDENTS_DIR
