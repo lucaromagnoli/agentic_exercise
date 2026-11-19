@@ -3,6 +3,7 @@ name = "agentic-exercise"
 version = "0.1.0"
 requires-python = ">=3.12"
 dependencies = [
+    "logfire>=5.6.0",
     "pydantic-ai-slim[anthropic,openai]>=2.68.0",
     "python-dotenv>=1.2.4",
 ]
